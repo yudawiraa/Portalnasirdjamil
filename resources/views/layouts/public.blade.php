@@ -21,6 +21,7 @@
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="aN_mqOqnWonhJKz1OFRPxAibHrDCS3cAbMqyhFgciDE" />
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
     <meta name="robots" content="@yield('robots', 'index, follow')">
