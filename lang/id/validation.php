@@ -1,0 +1,46 @@
+<?php
+
+return [
+    'accepted' => ':attribute wajib disetujui.',
+    'array' => ':attribute harus berupa daftar.',
+    'digits' => ':attribute harus terdiri dari :digits digit.',
+    'email' => ':attribute harus berupa alamat email yang valid.',
+    'exists' => ':attribute yang dipilih tidak valid.',
+    'file' => ':attribute harus berupa file.',
+    'max' => [
+        'array' => ':attribute maksimal berisi :max item.',
+        'file' => ':attribute maksimal berukuran :max kilobyte.',
+        'numeric' => ':attribute maksimal :max.',
+        'string' => ':attribute maksimal :max karakter.',
+    ],
+    'mimes' => ':attribute harus berupa file dengan format: :values.',
+    'min' => [
+        'array' => ':attribute minimal berisi :min item.',
+        'file' => ':attribute minimal berukuran :min kilobyte.',
+        'numeric' => ':attribute minimal :min.',
+        'string' => ':attribute minimal :min karakter.',
+    ],
+    'regex' => 'Format :attribute tidak valid.',
+    'required' => ':attribute wajib diisi.',
+    'string' => ':attribute harus berupa teks.',
+
+    'attributes' => [
+        'name' => 'nama lengkap',
+        'nik' => 'NIK',
+        'whatsapp' => 'nomor WhatsApp',
+        'email' => 'email',
+        'city' => 'kabupaten/kota',
+        'district_village' => 'kecamatan/desa',
+        'category_id' => 'kategori aspirasi',
+        'title' => 'judul/pokok masalah',
+        'body' => 'uraian lengkap aspirasi',
+        'agreement' => 'pernyataan persetujuan',
+        'attachments' => 'dokumen pendukung',
+        'attachments.*' => 'dokumen pendukung',
+        'code' => 'kode aspirasi',
+        'status' => 'status',
+        'public_response' => 'respons publik',
+        'internal_note' => 'catatan internal',
+        'history_note' => 'catatan perubahan status',
+    ],
+];
