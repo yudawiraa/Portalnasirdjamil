@@ -1,6 +1,45 @@
 import './bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const siteNav = document.querySelector('[data-site-nav]');
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const navMenu = document.querySelector('[data-nav-menu]');
+
+  const setNavOpen = (isOpen) => {
+    if (!siteNav || !navToggle) return;
+
+    siteNav.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  };
+
+  navToggle?.addEventListener('click', () => {
+    setNavOpen(!siteNav?.classList.contains('is-open'));
+  });
+
+  navMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setNavOpen(false));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!siteNav?.classList.contains('is-open')) return;
+    if (siteNav.contains(event.target)) return;
+
+    setNavOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setNavOpen(false);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980) {
+      setNavOpen(false);
+    }
+  });
+
   const revealItems = [...document.querySelectorAll('.reveal')];
 
   const revealVisibleItems = () => {

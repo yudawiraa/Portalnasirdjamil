@@ -1,12 +1,17 @@
-<nav class="topnav">
+<nav class="topnav" data-site-nav>
     <a class="nav-brand" href="{{ route('home') }}">
         <span class="nav-logo">NJ</span>
         <span class="nav-title">
             <strong>Portal Nasir Djamil</strong>
-            <span>Komisi III DPR RI · Dapil Aceh II</span>
+            <span>Komisi III DPR RI &middot; Dapil Aceh II</span>
         </span>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="primary-navigation" data-nav-toggle>
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="nav-links" id="primary-navigation" data-nav-menu>
         <a href="{{ route('home') }}" @class(['active' => request()->routeIs('home')])>Beranda</a>
         <a href="{{ route('profil') }}" @class(['active' => request()->routeIs('profil')])>Profil</a>
         <a href="{{ route('kegiatan') }}" @class(['active' => request()->routeIs('kegiatan*')])>Kegiatan</a>

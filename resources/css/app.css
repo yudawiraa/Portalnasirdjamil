@@ -95,6 +95,51 @@ a {
   margin-left: auto;
 }
 
+.nav-toggle {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(200, 151, 58, 0.38);
+  border-radius: 7px;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  height: 42px;
+  justify-content: center;
+  margin-left: auto;
+  padding: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  width: 44px;
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  background: rgba(200, 151, 58, 0.16);
+  border-color: var(--emas);
+  outline: none;
+}
+
+.nav-toggle span {
+  background: #fff;
+  border-radius: 99px;
+  display: block;
+  height: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 20px;
+}
+
+.topnav.is-open .nav-toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.topnav.is-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.topnav.is-open .nav-toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .nav-links a {
   border-radius: 4px;
   color: rgba(255, 255, 255, 0.72);
@@ -2338,8 +2383,67 @@ tr:last-child td {
     position: static;
   }
 
+  .topnav {
+    gap: 14px;
+  }
+
+  .nav-brand {
+    min-width: 0;
+  }
+
+  .nav-title {
+    min-width: 0;
+  }
+
+  .nav-title strong,
+  .nav-title span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
   .nav-links {
-    display: none;
+    background: rgba(20, 20, 20, 0.98);
+    border: 1px solid rgba(200, 151, 58, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    left: 5vw;
+    margin-left: 0;
+    opacity: 0;
+    padding: 10px;
+    pointer-events: none;
+    position: absolute;
+    right: 5vw;
+    top: calc(100% + 2px);
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    visibility: hidden;
+  }
+
+  .topnav.is-open .nav-links {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .nav-links a {
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 12px 14px;
+    width: 100%;
+  }
+
+  .nav-cta {
+    text-align: center;
   }
 
   .admin-filters,
@@ -2359,6 +2463,11 @@ tr:last-child td {
 
   .topnav {
     padding-inline: 18px;
+  }
+
+  .nav-links {
+    left: 18px;
+    right: 18px;
   }
 
   .nav-title span {
