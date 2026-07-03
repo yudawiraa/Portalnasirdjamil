@@ -1,6 +1,8 @@
 @extends('layouts.public')
 
 @section('title', $activity['title'] . ' - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', $activity['summary'])
+@section('image', asset($activity['image']))
 @section('page', 'kegiatan')
 
 @section('content')

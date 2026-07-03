@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Profil - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', 'Profil Dr. H. M. Nasir Djamil, M.Si, Anggota DPR RI Komisi III Fraksi PKS dari Daerah Pemilihan Aceh II.')
 @section('page', 'profil')
 
 @section('content')

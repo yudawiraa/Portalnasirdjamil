@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Kegiatan - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', 'Publikasi kegiatan Dr. H. M. Nasir Djamil, M.Si meliputi reses, rapat kerja, dialog konstituen, agenda legislasi, dan video dokumentasi.')
 @section('page', 'kegiatan')
 
 @section('content')

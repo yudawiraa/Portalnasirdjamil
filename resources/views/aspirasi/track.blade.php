@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Cek Status Aspirasi')
+@section('description', 'Cek status aspirasi konstituen menggunakan kode aspirasi dan nomor WhatsApp yang dipakai saat pengiriman.')
 
 @section('content')
 <header class="page-hero">

@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Aspirasi Berhasil Terkirim')
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 <header class="page-hero">

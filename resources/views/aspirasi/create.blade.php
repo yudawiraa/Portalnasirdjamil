@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Sampaikan Aspirasi - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', 'Kirim aspirasi, keluhan, saran, atau permohonan bantuan melalui layanan aspirasi konstituen Dr. H. M. Nasir Djamil, M.Si.')
 @section('page', 'aspirasi')
 
 @section('content')

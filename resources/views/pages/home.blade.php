@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Beranda - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', 'Portal resmi Dr. H. M. Nasir Djamil, M.Si, Anggota Komisi III DPR RI Fraksi PKS dari Dapil Aceh II untuk profil, kegiatan, galeri, dan layanan aspirasi.')
 @section('page', 'home')
 
 @section('content')

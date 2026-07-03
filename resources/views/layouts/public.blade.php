@@ -1,9 +1,64 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    @php
+        $publicUrl = rtrim((string) config('app.url', 'https://www.portalnasirdjamil.web.id'), '/');
+        $publicHost = parse_url($publicUrl, PHP_URL_HOST);
+
+        if ($publicHost !== 'www.portalnasirdjamil.web.id') {
+            $publicUrl = 'https://www.portalnasirdjamil.web.id';
+        }
+
+        $currentPath = request()->path() === '/' ? '' : '/'.request()->path();
+        $pageTitle = trim($__env->yieldContent('title', 'Dr. H. M. Nasir Djamil, M.Si'));
+        $metaDescription = trim($__env->yieldContent('description', 'Portal resmi Dr. H. M. Nasir Djamil, M.Si, Anggota Komisi III DPR RI Fraksi PKS dari Daerah Pemilihan Aceh II.'));
+        $canonicalUrl = trim($__env->yieldContent('canonical', $publicUrl.$currentPath));
+        $metaImage = trim($__env->yieldContent('image', $publicUrl.'/images/untuk profil.png'));
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dr. H. M. Nasir Djamil, M.Si')</title>
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="robots" content="@yield('robots', 'index, follow')">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="Portal Nasir Djamil">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ $metaImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Person',
+                    '@id' => $publicUrl.'/#person',
+                    'name' => 'Dr. H. M. Nasir Djamil, M.Si',
+                    'jobTitle' => 'Anggota DPR RI Komisi III',
+                    'url' => $publicUrl,
+                    'sameAs' => [
+                        'https://www.instagram.com/m.nasirdjamil',
+                    ],
+                ],
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $publicUrl.'/#website',
+                    'name' => 'Portal Nasir Djamil',
+                    'url' => $publicUrl,
+                    'inLanguage' => 'id-ID',
+                    'publisher' => [
+                        '@id' => $publicUrl.'/#person',
+                    ],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body data-page="@yield('page', '')">

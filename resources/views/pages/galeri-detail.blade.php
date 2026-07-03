@@ -1,6 +1,8 @@
 @extends('layouts.public')
 
 @section('title', $album['title'] . ' - Galeri Dr. H. M. Nasir Djamil, M.Si')
+@section('description', $album['summary'])
+@section('image', asset($album['cover']))
 @section('page', 'galeri')
 
 @section('content')

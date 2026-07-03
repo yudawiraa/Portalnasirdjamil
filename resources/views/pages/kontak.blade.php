@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Kontak - Dr. H. M. Nasir Djamil, M.Si')
+@section('description', 'Informasi kontak kantor dan kanal layanan aspirasi konstituen Dr. H. M. Nasir Djamil, M.Si.')
 
 @section('content')
 <header class="page-hero">
