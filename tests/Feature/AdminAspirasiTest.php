@@ -117,4 +117,40 @@ class AdminAspirasiTest extends TestCase
         $this->get($url)->assertRedirect(route('admin.login'));
         $this->actingAs($admin)->get($url)->assertOk();
     }
+
+    public function test_database_attachment_download_is_admin_only(): void
+    {
+        $this->withoutVite();
+        $this->seed();
+
+        $admin = User::query()->firstOrFail();
+        $category = AspirasiCategory::query()->firstOrFail();
+        $aspirasi = Aspirasi::create([
+            'code' => 'ASP-2026-44444',
+            'name' => 'Masyarakat',
+            'whatsapp' => '6281414141414',
+            'city' => 'Aceh Tengah',
+            'category_id' => $category->id,
+            'title' => 'Aspirasi dokumen database',
+            'body' => 'Aspirasi dengan dokumen pendukung yang disimpan di database.',
+            'status' => Aspirasi::STATUS_RECEIVED,
+            'submitted_at' => now(),
+        ]);
+
+        $attachment = AspirationAttachment::create([
+            'aspiration_id' => $aspirasi->id,
+            'original_name' => 'bukti-db.pdf',
+            'path' => 'database:aspirasi/ASP-2026-44444/bukti-db.pdf',
+            'mime_type' => 'application/pdf',
+            'size_bytes' => 5,
+            'content' => base64_encode('dummy'),
+        ]);
+
+        $url = route('admin.aspirasi.attachments.download', [$aspirasi, $attachment]);
+
+        $this->get($url)->assertRedirect(route('admin.login'));
+        $this->actingAs($admin)->get($url)
+            ->assertOk()
+            ->assertHeader('content-type', 'application/pdf');
+    }
 }

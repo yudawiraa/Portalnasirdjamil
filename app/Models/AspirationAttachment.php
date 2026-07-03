@@ -13,10 +13,27 @@ class AspirationAttachment extends Model
         'path',
         'mime_type',
         'size_bytes',
+        'content',
+    ];
+
+    protected $hidden = [
+        'content',
     ];
 
     public function aspiration(): BelongsTo
     {
         return $this->belongsTo(Aspirasi::class, 'aspiration_id');
+    }
+
+    public function hasDatabaseContent(): bool
+    {
+        return $this->content !== null;
+    }
+
+    public function contentBytes(): string
+    {
+        $decoded = base64_decode((string) $this->content, true);
+
+        return $decoded === false ? '' : $decoded;
     }
 }

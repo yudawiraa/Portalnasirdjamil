@@ -55,13 +55,14 @@ class AspirasiController extends Controller
             ]);
 
             foreach ($request->file('attachments', []) as $file) {
-                $path = $file->store('aspirasi/'.$aspirasi->code);
+                $content = file_get_contents($file->getPathname()) ?: '';
 
                 $aspirasi->attachments()->create([
                     'original_name' => $file->getClientOriginalName(),
-                    'path' => $path,
+                    'path' => 'database:aspirasi/'.$aspirasi->code.'/'.$file->hashName(),
                     'mime_type' => $file->getMimeType() ?: 'application/octet-stream',
                     'size_bytes' => $file->getSize(),
+                    'content' => base64_encode($content),
                 ]);
             }
 

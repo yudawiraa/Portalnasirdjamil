@@ -6,7 +6,6 @@ use App\Models\Aspirasi;
 use App\Models\AspirasiCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class AspirasiFlowTest extends TestCase
@@ -17,7 +16,6 @@ class AspirasiFlowTest extends TestCase
     {
         $this->withoutVite();
         $this->seed();
-        Storage::fake('local');
 
         $category = AspirasiCategory::query()->firstOrFail();
 
@@ -44,7 +42,7 @@ class AspirasiFlowTest extends TestCase
         $this->assertMatchesRegularExpression('/^ASP-\d{4}-\d{5}$/', $aspirasi->code);
         $this->assertCount(1, $aspirasi->attachments);
         $this->assertCount(1, $aspirasi->histories);
-        Storage::disk('local')->assertExists($aspirasi->attachments->first()->path);
+        $this->assertTrue($aspirasi->attachments->first()->hasDatabaseContent());
 
         $this->post(route('aspirasi.track.lookup'), [
             'code' => $aspirasi->code,

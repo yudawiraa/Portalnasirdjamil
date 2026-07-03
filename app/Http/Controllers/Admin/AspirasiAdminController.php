@@ -100,6 +100,15 @@ class AspirasiAdminController extends Controller
     public function download(Aspirasi $aspirasi, AspirationAttachment $attachment): StreamedResponse
     {
         abort_unless((int) $attachment->aspiration_id === (int) $aspirasi->id, 404);
+
+        if ($attachment->hasDatabaseContent()) {
+            return response()->streamDownload(
+                fn () => print $attachment->contentBytes(),
+                $attachment->original_name,
+                ['Content-Type' => $attachment->mime_type ?: 'application/octet-stream'],
+            );
+        }
+
         abort_unless(Storage::exists($attachment->path), 404);
 
         return Storage::download($attachment->path, $attachment->original_name);
