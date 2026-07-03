@@ -37,6 +37,19 @@ class PublicPagesTest extends TestCase
         $this->get('/komisi-iii')->assertRedirect('/#komisi-iii');
     }
 
+    public function test_homepage_includes_search_metadata(): void
+    {
+        $this->withoutVite();
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('<meta name="description"', false)
+            ->assertSee('<meta name="robots" content="index, follow">', false)
+            ->assertSee('<link rel="canonical" href="https://www.portalnasirdjamil.web.id">', false)
+            ->assertSee('"@context": "https://schema.org"', false)
+            ->assertDontSee('__contextArgs');
+    }
+
     public function test_search_engine_files_are_available(): void
     {
         config(['app.url' => 'https://www.portalnasirdjamil.web.id']);

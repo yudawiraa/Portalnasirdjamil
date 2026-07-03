@@ -14,6 +14,10 @@
         $metaDescription = trim($__env->yieldContent('description', 'Portal resmi Dr. H. M. Nasir Djamil, M.Si, Anggota Komisi III DPR RI Fraksi PKS dari Daerah Pemilihan Aceh II.'));
         $canonicalUrl = trim($__env->yieldContent('canonical', $publicUrl.$currentPath));
         $metaImage = trim($__env->yieldContent('image', $publicUrl.'/images/untuk profil.png'));
+        $schemaContext = '@'.'context';
+        $schemaGraph = '@'.'graph';
+        $schemaType = '@'.'type';
+        $schemaId = '@'.'id';
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,11 +38,11 @@
     <meta name="twitter:image" content="{{ $metaImage }}">
     <script type="application/ld+json">
         {!! json_encode([
-            '@context' => 'https://schema.org',
-            '@graph' => [
+            $schemaContext => 'https://schema.org',
+            $schemaGraph => [
                 [
-                    '@type' => 'Person',
-                    '@id' => $publicUrl.'/#person',
+                    $schemaType => 'Person',
+                    $schemaId => $publicUrl.'/#person',
                     'name' => 'Dr. H. M. Nasir Djamil, M.Si',
                     'jobTitle' => 'Anggota DPR RI Komisi III',
                     'url' => $publicUrl,
@@ -47,13 +51,13 @@
                     ],
                 ],
                 [
-                    '@type' => 'WebSite',
-                    '@id' => $publicUrl.'/#website',
+                    $schemaType => 'WebSite',
+                    $schemaId => $publicUrl.'/#website',
                     'name' => 'Portal Nasir Djamil',
                     'url' => $publicUrl,
                     'inLanguage' => 'id-ID',
                     'publisher' => [
-                        '@id' => $publicUrl.'/#person',
+                        $schemaId => $publicUrl.'/#person',
                     ],
                 ],
             ],
