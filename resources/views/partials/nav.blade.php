@@ -16,6 +16,7 @@
         <a href="{{ route('profil') }}" @class(['active' => request()->routeIs('profil')])>Profil</a>
         <a href="{{ route('kegiatan') }}" @class(['active' => request()->routeIs('kegiatan*')])>Kegiatan</a>
         <a href="{{ route('galeri') }}" @class(['active' => request()->routeIs('galeri*')])>Galeri</a>
+        <a href="{{ route('faq') }}" @class(['active' => request()->routeIs('faq')])>FAQ</a>
         <a href="{{ route('aspirasi.create') }}" @class(['nav-cta', 'active' => request()->routeIs('aspirasi.create')])>Aspirasi</a>
     </div>
 </nav>
