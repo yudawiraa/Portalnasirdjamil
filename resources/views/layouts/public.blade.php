@@ -12,6 +12,9 @@
         $currentPath = request()->path() === '/' ? '' : '/'.request()->path();
         $pageTitle = trim($__env->yieldContent('title', 'Dr. H. M. Nasir Djamil, M.Si'));
         $metaDescription = trim($__env->yieldContent('description', 'Portal resmi Dr. H. M. Nasir Djamil, M.Si, Anggota Komisi III DPR RI Fraksi PKS dari Daerah Pemilihan Aceh II.'));
+        $robotsContent = config('site.private.enabled')
+            ? 'noindex, nofollow, noarchive'
+            : trim($__env->yieldContent('robots', 'index, follow'));
         $canonicalUrl = trim($__env->yieldContent('canonical', $publicUrl.$currentPath));
         $metaImage = trim($__env->yieldContent('image', $publicUrl.'/images/untuk profil.png'));
         $schemaContext = '@'.'context';
@@ -24,7 +27,7 @@
     <meta name="google-site-verification" content="aN_mqOqnWonhJKz1OFRPxAibHrDCS3cAbMqyhFgciDE" />
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
-    <meta name="robots" content="@yield('robots', 'index, follow')">
+    <meta name="robots" content="{{ $robotsContent }}">
     <link rel="canonical" href="{{ $canonicalUrl }}">
     <meta property="og:locale" content="id_ID">
     <meta property="og:type" content="@yield('og_type', 'website')">

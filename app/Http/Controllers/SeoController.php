@@ -32,6 +32,13 @@ class SeoController extends Controller
 
     public function sitemap(): Response
     {
+        if (config('site.private.enabled')) {
+            return response()
+                ->view('seo.sitemap', ['urls' => []])
+                ->header('Content-Type', 'application/xml; charset=UTF-8')
+                ->header('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        }
+
         $urls = [
             $this->entry('/', 'weekly', '1.0'),
             $this->entry('/profil', 'monthly', '0.8'),
@@ -57,6 +64,17 @@ class SeoController extends Controller
 
     public function robots(): Response
     {
+        if (config('site.private.enabled')) {
+            return response(
+                "User-agent: *\nDisallow: /\n",
+                200,
+                [
+                    'Content-Type' => 'text/plain; charset=UTF-8',
+                    'X-Robots-Tag' => 'noindex, nofollow, noarchive',
+                ]
+            );
+        }
+
         return response(
             "User-agent: *\nAllow: /\n\nSitemap: ".self::PUBLIC_URL."/sitemap.xml\n",
             200,

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureAdmin;
+use App\Http\Middleware\ProtectPrivateSite;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: env('TRUSTED_PROXIES'));
         $middleware->alias([
             'admin' => EnsureAdmin::class,
+            'private.site' => ProtectPrivateSite::class,
         ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })

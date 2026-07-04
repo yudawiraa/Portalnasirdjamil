@@ -70,4 +70,32 @@ class PublicPagesTest extends TestCase
             ->assertDontSee('/admin')
             ->assertDontSee('/aspirasi/sukses');
     }
+
+    public function test_private_site_mode_requires_basic_auth_and_blocks_indexing(): void
+    {
+        $this->withoutVite();
+
+        config([
+            'site.private.enabled' => true,
+            'site.private.user' => 'review',
+            'site.private.password' => 'secret-review',
+        ]);
+
+        $this->get('/')
+            ->assertUnauthorized()
+            ->assertHeader('WWW-Authenticate', 'Basic realm="Portal Nasir Djamil Review"')
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+
+        $this->withBasicAuth('review', 'secret-review')
+            ->get('/')
+            ->assertOk()
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive')
+            ->assertSee('<meta name="robots" content="noindex, nofollow, noarchive">', false);
+
+        $this->get('/robots.txt')
+            ->assertOk()
+            ->assertSee("User-agent: *\nDisallow: /");
+
+        $this->get('/admin/login')->assertOk();
+    }
 }
