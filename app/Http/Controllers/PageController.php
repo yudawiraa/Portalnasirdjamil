@@ -40,6 +40,8 @@ class PageController extends Controller
     {
         return view('pages.galeri', [
             'albums' => $this->galeriAlbums(),
+            'videos' => $this->videoDokumentasiData(),
+            'instagramUrl' => 'https://www.instagram.com/nasirdjamil.update?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
         ]);
     }
 
@@ -62,20 +64,6 @@ class PageController extends Controller
     private function kegiatanData(): array
     {
         return [
-            [
-                'slug' => 'reses-aceh-barat',
-                'filter' => 'reses',
-                'category' => 'Reses',
-                'title' => 'Reses Aceh Barat',
-                'date' => '12 Juni 2026',
-                'location' => 'Aceh Barat',
-                'summary' => 'Dialog bersama masyarakat terkait pelayanan publik, akses keadilan, dan kebutuhan daerah.',
-                'image' => 'images/foto pak nasir ngopi.jpeg',
-                'body' => [
-                    'Kegiatan reses menjadi ruang utama untuk mendengar langsung kebutuhan masyarakat di daerah pemilihan. Dalam forum ini, isu pelayanan publik, akses keadilan, serta kebutuhan pembangunan daerah dihimpun sebagai bahan pengawasan dan kerja legislasi.',
-                    'Masukan masyarakat dari kegiatan ini menjadi catatan untuk ditindaklanjuti melalui fungsi pengawasan, koordinasi dengan mitra kerja, serta kanal aspirasi resmi.',
-                ],
-            ],
             [
                 'slug' => 'rapat-kerja-komisi-iii',
                 'filter' => 'rapat-kerja',
@@ -162,34 +150,6 @@ class PageController extends Controller
                     'Banda Aceh, 17 April 2026 - Dr. H. M. Nasir Djamil, M.Si hadir sebagai narasumber dalam kuliah umum yang digelar di Mushalla STAI Tgk. Chik Pante Kulu. Kegiatan ini menjadi ruang akademik untuk memperluas wawasan mahasiswa sekaligus memperkuat dialog antara dunia pendidikan dan kerja-kerja kebangsaan.',
                     'Dalam forum tersebut, Nasir Djamil menyampaikan materi yang menekankan pentingnya ilmu, integritas, kepedulian sosial, serta peran generasi muda dalam menjaga arah pembangunan bangsa. Suasana kegiatan berlangsung hangat dengan partisipasi peserta yang mengikuti jalannya kuliah umum hingga sesi penutup.',
                     'Agenda ini juga ditandai dengan penyerahan sertifikat dan foto bersama sebagai dokumentasi kegiatan. Kehadiran kuliah umum semacam ini diharapkan dapat memberi inspirasi bagi mahasiswa untuk terus mengembangkan kapasitas diri dan terlibat aktif dalam kehidupan publik.',
-                ],
-            ],
-            [
-                'slug' => 'aspirasi-masyarakat-aceh-ii',
-                'filter' => 'aspirasi-masyarakat',
-                'category' => 'Aspirasi Masyarakat',
-                'title' => 'Dialog Aspirasi Masyarakat Aceh II',
-                'date' => '2026',
-                'location' => 'Dapil Aceh II',
-                'summary' => 'Penyerapan aspirasi warga terkait penegakan hukum, akses keadilan, layanan publik, dan kebutuhan daerah.',
-                'image' => 'images/foto pak nasir ngopi.jpeg',
-                'body' => [
-                    'Dialog aspirasi masyarakat dilakukan untuk menjaga komunikasi intensif antara wakil rakyat dan konstituen di daerah pemilihan.',
-                    'Aspirasi yang masuk dipilah berdasarkan isu, urgensi, dan ruang tindak lanjut agar dapat diarahkan melalui kanal kerja yang tepat.',
-                ],
-            ],
-            [
-                'slug' => 'rapat-dengar-pendapat',
-                'filter' => 'rapat-kerja',
-                'category' => 'Rapat Kerja',
-                'title' => 'Rapat Dengar Pendapat',
-                'date' => '2026',
-                'location' => 'Jakarta - DPR RI',
-                'summary' => 'Pendalaman isu aktual bersama lembaga terkait dalam lingkup kerja Komisi III DPR RI.',
-                'image' => 'images/untuk profil.png',
-                'body' => [
-                    'Rapat dengar pendapat menjadi forum pendalaman terhadap isu aktual yang berkaitan dengan mitra kerja Komisi III DPR RI.',
-                    'Hasil pembahasan menjadi dasar penguatan pengawasan, rekomendasi kebijakan, dan tindak lanjut kelembagaan.',
                 ],
             ],
         ];

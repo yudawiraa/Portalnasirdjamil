@@ -18,7 +18,6 @@ class PublicPagesTest extends TestCase
             $this->get($uri)->assertOk();
         }
 
-        $this->get('/kegiatan/reses-aceh-barat')->assertOk();
         $this->get('/kegiatan/diskusi-dema-fkd-uin-ar-raniry')->assertOk();
         $this->get('/kegiatan/pengukuhan-paralegal-yara')->assertOk();
         $this->get('/kegiatan/kuliah-umum-stai-pante-kulu')->assertOk()->assertSee('Kuliah Umum');
@@ -29,7 +28,18 @@ class PublicPagesTest extends TestCase
             ->assertSee('Soft Launching BLKK')
             ->assertSee('DXwIXLjhUN6')
             ->assertSee('data-show-on-all="false"', false)
-            ->assertDontSee('Kunjungan Kerja Daerah');
+            ->assertDontSee('Kunjungan Kerja Daerah')
+            ->assertDontSee('Reses Aceh Barat')
+            ->assertDontSee('Dialog Aspirasi Masyarakat Aceh II')
+            ->assertDontSee('Rapat Dengar Pendapat');
+        $this->get('/kegiatan/reses-aceh-barat')->assertNotFound();
+        $this->get('/kegiatan/aspirasi-masyarakat-aceh-ii')->assertNotFound();
+        $this->get('/kegiatan/rapat-dengar-pendapat')->assertNotFound();
+        $this->get('/galeri')
+            ->assertOk()
+            ->assertSee('Video Dokumentasi')
+            ->assertSee('Soft Launching BLKK')
+            ->assertSee('data-filter="video-dokumentasi"', false);
         $this->get('/galeri/pengukuhan-paralegal-yara')->assertOk();
         $this->get('/galeri/agenda-legislasi-hukum')->assertOk();
         $this->get('/galeri/kuliah-umum-stai-pante-kulu')->assertOk()->assertSee('Kuliah Umum');

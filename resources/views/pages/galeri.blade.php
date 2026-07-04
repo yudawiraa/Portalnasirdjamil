@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Galeri - Dr. H. M. Nasir Djamil, M.Si')
-@section('description', 'Galeri dokumentasi kegiatan Dr. H. M. Nasir Djamil, M.Si, termasuk dialog konstituen, reses, rapat kerja, dan agenda kelembagaan.')
+@section('description', 'Galeri dokumentasi kegiatan Dr. H. M. Nasir Djamil, M.Si, termasuk dialog konstituen, reses, rapat kerja, agenda kelembagaan, dan video dokumentasi.')
 @section('page', 'galeri')
 
 @section('content')
@@ -19,9 +19,10 @@
     <button class="filter-btn" type="button" data-filter="kunjungan-kerja">Kunjungan Kerja</button>
     <button class="filter-btn" type="button" data-filter="legislasi">Legislasi</button>
     <button class="filter-btn" type="button" data-filter="dialog-konstituen">Dialog Konstituen</button>
+    <button class="filter-btn" type="button" data-filter="video-dokumentasi">Video Dokumentasi</button>
 </div>
 
-<section class="section">
+<section class="section filter-panel" data-filter-panel="galeri" data-filter-panel-categories="reses rapat-kerja kunjungan-kerja legislasi dialog-konstituen" data-show-on-all="true">
     <div class="gallery-album-grid">
         @foreach ($albums as $album)
             <article class="gallery-album-card reveal filterable" data-filterable="galeri" data-category="{{ $album['filter'] }}">
@@ -43,6 +44,59 @@
                 </div>
             </article>
         @endforeach
+    </div>
+</section>
+
+<section class="section video-doc-section filter-panel hidden" data-filter-panel="galeri" data-filter-panel-categories="video-dokumentasi" data-show-on-all="false">
+    <div class="video-doc-header reveal">
+        <span class="video-doc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M5 7h2.6l1.3-2h6.2l1.3 2H19a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"></path>
+                <circle cx="12" cy="13" r="3.4"></circle>
+            </svg>
+        </span>
+        <div>
+            <h2>Video Dokumentasi</h2>
+            <p>Cuplikan kegiatan dari Instagram tim media Dr. H. M. Nasir Djamil.</p>
+        </div>
+    </div>
+
+    <div class="video-doc-grid">
+        @foreach ($videos as $video)
+            <article class="video-doc-card reveal">
+                <a class="video-doc-thumb" href="{{ $video['url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Buka video {{ $video['title'] }} di Instagram">
+                    <img src="{{ asset($video['thumbnail']) }}" alt="{{ $video['title'] }}">
+                    <span class="video-doc-label" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 7h16v10H4z"></path>
+                            <path d="m10 10 4 2-4 2z"></path>
+                        </svg>
+                        Reel
+                    </span>
+                    <span class="video-doc-play" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </span>
+                </a>
+
+                <div class="video-doc-info">
+                    <h3>{{ $video['title'] }}</h3>
+                    <p>{{ $video['location'] }} | {{ $video['date'] }}</p>
+                </div>
+            </article>
+        @endforeach
+
+        <a class="video-doc-instagram reveal" href="{{ $instagramUrl }}" target="_blank" rel="noopener noreferrer">
+            <span class="video-doc-instagram-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <circle cx="17.5" cy="6.5" r="1.2"></circle>
+                </svg>
+            </span>
+            <strong>Lihat semua di Instagram</strong>
+        </a>
     </div>
 </section>
 @endsection
