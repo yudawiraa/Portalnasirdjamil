@@ -45,6 +45,9 @@ class PublicPagesTest extends TestCase
             ->assertOk()
             ->assertSee('<meta name="description"', false)
             ->assertSee('<meta name="robots" content="index, follow">', false)
+            ->assertSee('favicon-48x48.png')
+            ->assertSee('apple-touch-icon.png')
+            ->assertSee('site.webmanifest')
             ->assertSee('<link rel="canonical" href="https://www.portalnasirdjamil.web.id">', false)
             ->assertSee('"@context": "https://schema.org"', false)
             ->assertDontSee('__contextArgs');
@@ -69,6 +72,15 @@ class PublicPagesTest extends TestCase
             ->assertSee('<loc>https://www.portalnasirdjamil.web.id/galeri/fgd-bukber-dpd-pks-langsa</loc>', false)
             ->assertDontSee('/admin')
             ->assertDontSee('/aspirasi/sukses');
+    }
+
+    public function test_site_icons_are_available(): void
+    {
+        $this->assertFileExists(public_path('favicon.ico'));
+        $this->assertFileExists(public_path('favicon-48x48.png'));
+        $this->assertFileExists(public_path('apple-touch-icon.png'));
+        $this->assertFileExists(public_path('site.webmanifest'));
+        $this->assertStringContainsString('Portal NJ', file_get_contents(public_path('site.webmanifest')));
     }
 
     public function test_private_site_mode_requires_basic_auth_and_blocks_indexing(): void
