@@ -98,4 +98,23 @@ class PublicPagesTest extends TestCase
 
         $this->get('/admin/login')->assertOk();
     }
+
+    public function test_private_site_mode_accepts_default_review_credentials(): void
+    {
+        $this->withoutVite();
+
+        config([
+            'site.private.enabled' => true,
+            'site.private.user' => 'review',
+            'site.private.password' => 'PortalNasirReview2026',
+        ]);
+
+        $this->get('/')
+            ->assertUnauthorized()
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+
+        $this->withBasicAuth('review', 'PortalNasirReview2026')
+            ->get('/')
+            ->assertOk();
+    }
 }
