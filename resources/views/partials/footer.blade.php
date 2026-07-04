@@ -36,10 +36,9 @@
         </div>
         <div class="footer-col">
             <h4>Kantor</h4>
-            <a href="#">Gedung Nusantara I, DPR RI</a>
-            <a href="#">Jl. Gatot Subroto, Jakarta</a>
-            <a href="#">Senin-Jumat 08.00-16.00</a>
-            <a href="mailto:nasirdjamil@dpr.go.id">nasirdjamil@dpr.go.id</a>
+            <span class="footer-text">Gedung Nusantara I, DPR RI</span>
+            <span class="footer-text">Jl. Gatot Subroto, Jakarta</span>
+            <span class="footer-text">Senin-Jumat 08.00-16.00</span>
         </div>
     </div>
     <div class="footer-bottom">

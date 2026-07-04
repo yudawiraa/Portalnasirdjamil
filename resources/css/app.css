@@ -2250,6 +2250,7 @@ tr:last-child td {
 }
 
 .footer-col a,
+.footer-text,
 .footer-sosmed a {
   color: rgba(255, 255, 255, 0.52);
   display: block;
