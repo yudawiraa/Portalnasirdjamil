@@ -31,6 +31,7 @@
             <h4>Layanan</h4>
             <a href="{{ route('aspirasi.create') }}">Sampaikan Aspirasi</a>
             <a href="{{ route('aspirasi.track.form') }}">Cek Status Aspirasi</a>
+            <a href="{{ route('faq') }}">FAQ</a>
             <a href="{{ route('kontak') }}">Kontak & Lokasi</a>
         </div>
         <div class="footer-col">

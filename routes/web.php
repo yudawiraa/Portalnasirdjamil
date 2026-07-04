@@ -22,6 +22,7 @@ Route::middleware('private.site')->group(function (): void {
     Route::get('/galeri/{slug}', [PageController::class, 'galeriDetail'])->name('galeri.show');
     Route::redirect('/komisi-iii', '/#komisi-iii')->name('komisi-iii');
     Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+    Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 
     Route::get('/aspirasi', [AspirasiController::class, 'create'])->name('aspirasi.create');
     Route::post('/aspirasi', [AspirasiController::class, 'store'])->middleware('throttle:10,1')->name('aspirasi.store');

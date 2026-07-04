@@ -14,7 +14,7 @@ class PublicPagesTest extends TestCase
         $this->withoutVite();
         $this->seed();
 
-        foreach (['/', '/profil', '/kegiatan', '/galeri', '/kontak', '/aspirasi', '/cek-aspirasi'] as $uri) {
+        foreach (['/', '/profil', '/kegiatan', '/galeri', '/kontak', '/faq', '/aspirasi', '/cek-aspirasi'] as $uri) {
             $this->get($uri)->assertOk();
         }
 
@@ -44,6 +44,15 @@ class PublicPagesTest extends TestCase
         $this->get('/galeri/agenda-legislasi-hukum')->assertOk();
         $this->get('/galeri/kuliah-umum-stai-pante-kulu')->assertOk()->assertSee('Kuliah Umum');
         $this->get('/galeri/fgd-bukber-dpd-pks-langsa')->assertOk()->assertSee('FGD');
+        $this->get('/faq')
+            ->assertOk()
+            ->assertSee('Pertanyaan <em>Umum</em>', false)
+            ->assertSee('Kode aspirasi bukan OTP WhatsApp')
+            ->assertSee('"@type": "FAQPage"', false)
+            ->assertDontSee('__contextArgs');
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('FAQ');
         $this->get('/komisi-iii')->assertRedirect('/#komisi-iii');
     }
 
@@ -78,6 +87,7 @@ class PublicPagesTest extends TestCase
             ->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', false)
             ->assertSee('<loc>https://www.portalnasirdjamil.web.id</loc>', false)
             ->assertSee('<loc>https://www.portalnasirdjamil.web.id/profil</loc>', false)
+            ->assertSee('<loc>https://www.portalnasirdjamil.web.id/faq</loc>', false)
             ->assertSee('<loc>https://www.portalnasirdjamil.web.id/kegiatan/pengukuhan-paralegal-yara</loc>', false)
             ->assertSee('<loc>https://www.portalnasirdjamil.web.id/galeri/fgd-bukber-dpd-pks-langsa</loc>', false)
             ->assertDontSee('/admin')

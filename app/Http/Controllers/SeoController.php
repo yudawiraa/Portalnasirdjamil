@@ -9,15 +9,12 @@ class SeoController extends Controller
     private const PUBLIC_URL = 'https://www.portalnasirdjamil.web.id';
 
     private const ACTIVITY_SLUGS = [
-        'reses-aceh-barat',
         'rapat-kerja-komisi-iii',
         'fgd-bukber-dpd-pks-langsa',
         'agenda-legislasi-hukum',
         'pengukuhan-paralegal-yara',
         'diskusi-dema-fkd-uin-ar-raniry',
         'kuliah-umum-stai-pante-kulu',
-        'aspirasi-masyarakat-aceh-ii',
-        'rapat-dengar-pendapat',
     ];
 
     private const GALLERY_SLUGS = [
@@ -46,6 +43,7 @@ class SeoController extends Controller
             $this->entry('/galeri', 'weekly', '0.8'),
             $this->entry('/aspirasi', 'monthly', '0.7'),
             $this->entry('/cek-aspirasi', 'monthly', '0.5'),
+            $this->entry('/faq', 'monthly', '0.5'),
             $this->entry('/kontak', 'monthly', '0.5'),
         ];
 

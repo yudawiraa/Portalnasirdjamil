@@ -61,6 +61,13 @@ class PageController extends Controller
         return view('pages.kontak');
     }
 
+    public function faq(): View
+    {
+        return view('pages.faq', [
+            'faqSections' => $this->faqData(),
+        ]);
+    }
+
     private function kegiatanData(): array
     {
         return [
@@ -295,6 +302,88 @@ class PageController extends Controller
                     ['src' => 'images/kegiatan/fgd-bukber-dpd-pks-langsa-diskusi-2.jpeg', 'caption' => 'Suasana FGD dan buka puasa bersama DPD PKS Kota Langsa'],
                     ['src' => 'images/kegiatan/fgd-bukber-dpd-pks-langsa-diskusi-1.jpeg', 'caption' => 'Diskusi bersama peserta FGD di Aula B Vitra Convention Hall'],
                     ['src' => 'images/kegiatan/fgd-bukber-dpd-pks-langsa-foto-bersama.jpeg', 'caption' => 'Foto bersama keluarga besar DPD PKS Kota Langsa'],
+                ],
+            ],
+        ];
+    }
+
+    private function faqData(): array
+    {
+        return [
+            [
+                'title' => 'Tentang Portal',
+                'items' => [
+                    [
+                        'question' => 'Apa fungsi Portal Nasir Djamil?',
+                        'answer' => 'Portal ini menjadi pusat informasi profil, kegiatan, dokumentasi galeri, video, dan layanan aspirasi konstituen Dr. H. M. Nasir Djamil, M.Si sebagai Anggota Komisi III DPR RI dari Dapil Aceh II.',
+                    ],
+                    [
+                        'question' => 'Apa perbedaan halaman Kegiatan dan Galeri?',
+                        'answer' => 'Halaman Kegiatan berisi ringkasan agenda dan narasi singkat aktivitas. Halaman Galeri berfungsi sebagai arsip dokumentasi dalam bentuk album foto dan video dokumentasi.',
+                    ],
+                    [
+                        'question' => 'Apakah informasi kegiatan akan terus diperbarui?',
+                        'answer' => 'Ya. Konten kegiatan, galeri, dan video dapat diperbarui sesuai dokumentasi terbaru dari agenda publik, dialog konstituen, rapat kerja, dan kegiatan kelembagaan.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Layanan Aspirasi',
+                'items' => [
+                    [
+                        'question' => 'Bagaimana cara menyampaikan aspirasi?',
+                        'answer' => 'Buka halaman Sampaikan Aspirasi, isi data diri, pilih kategori, tulis judul dan uraian masalah, lalu kirim. Dokumen pendukung dapat dilampirkan jika tersedia.',
+                    ],
+                    [
+                        'question' => 'Data apa saja yang perlu disiapkan?',
+                        'answer' => 'Minimal siapkan nama lengkap, nomor WhatsApp aktif, kabupaten/kota, kategori aspirasi, judul masalah, dan uraian lengkap. NIK dan email bersifat pendukung sesuai kebutuhan.',
+                    ],
+                    [
+                        'question' => 'Apakah bisa melampirkan dokumen pendukung?',
+                        'answer' => 'Bisa. Form aspirasi mendukung maksimal 5 file dengan format PDF, JPG, JPEG, atau PNG. Setiap file maksimal 5 MB.',
+                    ],
+                    [
+                        'question' => 'Apakah semua aspirasi langsung ditindaklanjuti?',
+                        'answer' => 'Aspirasi yang masuk akan melewati tahap verifikasi, klasifikasi, telaah internal, dan tindak lanjut sesuai kelengkapan data, kategori masalah, serta ruang kewenangan yang relevan.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Kode dan Status Aspirasi',
+                'items' => [
+                    [
+                        'question' => 'Apa itu kode aspirasi?',
+                        'answer' => 'Kode aspirasi adalah nomor unik yang muncul setelah formulir berhasil dikirim. Kode ini digunakan bersama nomor WhatsApp pengirim untuk mengecek perkembangan status aspirasi.',
+                    ],
+                    [
+                        'question' => 'Apakah kode aspirasi dikirim otomatis lewat WhatsApp?',
+                        'answer' => 'Tidak. Kode aspirasi bukan OTP WhatsApp. Kode hanya muncul di halaman berhasil setelah pengiriman, sehingga pengirim perlu menyalin, mencatat, atau screenshot kode tersebut.',
+                    ],
+                    [
+                        'question' => 'Bagaimana kalau lupa kode aspirasi?',
+                        'answer' => 'Hubungi admin melalui kanal kontak yang tersedia dengan menyebutkan nama lengkap, nomor WhatsApp yang dipakai saat mengirim, kabupaten/kota, dan judul aspirasi agar admin dapat membantu menelusuri data.',
+                    ],
+                    [
+                        'question' => 'Bagaimana cara mengecek status aspirasi?',
+                        'answer' => 'Buka halaman Cek Status Aspirasi, lalu masukkan kode aspirasi dan nomor WhatsApp yang sama dengan data saat pengiriman.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Privasi dan Kontak',
+                'items' => [
+                    [
+                        'question' => 'Untuk apa data pengirim digunakan?',
+                        'answer' => 'Data digunakan untuk kebutuhan verifikasi, klasifikasi, komunikasi tindak lanjut, dan dokumentasi penanganan aspirasi. Data sensitif seperti NIK tidak ditampilkan di halaman publik.',
+                    ],
+                    [
+                        'question' => 'Kapan perlu menghubungi admin?',
+                        'answer' => 'Hubungi admin jika lupa kode aspirasi, ada kesalahan data penting, perlu menambahkan informasi pendukung, atau membutuhkan bantuan menggunakan layanan cek status.',
+                    ],
+                    [
+                        'question' => 'Apakah masyarakat di luar Aceh II bisa mengirim aspirasi?',
+                        'answer' => 'Portal ini diprioritaskan untuk layanan konstituen Dapil Aceh II. Aspirasi dari luar wilayah tetap dapat diterima sebagai masukan, namun tindak lanjut akan menyesuaikan relevansi dan kewenangan.',
+                    ],
                 ],
             ],
         ];
