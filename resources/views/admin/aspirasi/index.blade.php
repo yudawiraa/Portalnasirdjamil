@@ -3,6 +3,10 @@
 @section('title', 'Daftar Aspirasi')
 
 @section('content')
+@php
+    $cleanFilters = array_filter($filters, fn ($value) => filled($value));
+@endphp
+
 <section class="admin-hero">
     <div class="section-kop">Management</div>
     <h1>Daftar Aspirasi</h1>
@@ -10,6 +14,16 @@
 </section>
 
 <section class="admin-card" style="margin-bottom:24px">
+    <div class="admin-report-head" style="margin-bottom:16px">
+        <div>
+            <div class="section-kop">Laporan</div>
+            <h2>Filter & Export</h2>
+        </div>
+        <div class="admin-report-actions">
+            <a href="{{ route('admin.aspirasi.export', array_merge(['format' => 'csv'], $cleanFilters)) }}" class="btn btn-outline">Export CSV</a>
+            <a href="{{ route('admin.aspirasi.export', array_merge(['format' => 'xls'], $cleanFilters)) }}" class="btn btn-merah">Export Excel</a>
+        </div>
+    </div>
     <form method="GET" action="{{ route('admin.aspirasi.index') }}" class="admin-filters">
         <input class="form-control" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Cari kode, nama, WhatsApp, judul, kota">
         <select class="form-control" name="status">

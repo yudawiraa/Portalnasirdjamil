@@ -16,6 +16,7 @@ class AspirasiController extends Controller
     {
         return view('aspirasi.create', [
             'categories' => AspirasiCategory::query()->where('is_active', true)->orderBy('name')->get(),
+            'adminWhatsapp' => config('site.aspirasi_admin_whatsapp'),
         ]);
     }
 
@@ -83,7 +84,10 @@ class AspirasiController extends Controller
     {
         $aspirasi = Aspirasi::query()->where('code', $code)->firstOrFail();
 
-        return view('aspirasi.success', compact('aspirasi'));
+        return view('aspirasi.success', [
+            'aspirasi' => $aspirasi,
+            'adminWhatsapp' => config('site.aspirasi_admin_whatsapp'),
+        ]);
     }
 
     public static function normalizeWhatsapp(string $value): string

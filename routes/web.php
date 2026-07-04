@@ -39,6 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::get('/aspirasi', [AspirasiAdminController::class, 'index'])->name('aspirasi.index');
+        Route::get('/aspirasi/export/{format}', [AspirasiAdminController::class, 'export'])->whereIn('format', ['csv', 'xls'])->name('aspirasi.export');
         Route::get('/aspirasi/{aspirasi}', [AspirasiAdminController::class, 'show'])->name('aspirasi.show');
         Route::patch('/aspirasi/{aspirasi}', [AspirasiAdminController::class, 'update'])->name('aspirasi.update');
         Route::get('/aspirasi/{aspirasi}/attachments/{attachment}', [AspirasiAdminController::class, 'download'])->name('aspirasi.attachments.download');

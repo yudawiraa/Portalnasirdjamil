@@ -53,7 +53,7 @@
             @if ($errors->any())
                 <div class="alert alert-peringatan">Ada data yang belum valid. Periksa kembali field yang ditandai merah.</div>
             @else
-                <div class="alert alert-info">Pastikan data yang Anda isi benar. Kode aspirasi akan muncul setelah form berhasil dikirim.</div>
+                <div class="alert alert-info">Pastikan data yang Anda isi benar. Kode aspirasi akan muncul setelah form berhasil dikirim dan tidak dikirim otomatis lewat WhatsApp.</div>
             @endif
 
             <div class="aspirasi-step" data-step="1" @if($initialStep !== 1) hidden @endif>
@@ -161,6 +161,29 @@
                 </div>
             </div>
         </form>
+
+        @include('aspirasi.partials.code-help', ['adminWhatsapp' => $adminWhatsapp])
+    </div>
+</section>
+
+<section class="section bg-gelap">
+    <div style="max-width:850px;margin:0 auto">
+        <div class="section-kop reveal">FAQ Aspirasi</div>
+        <h2 class="section-judul reveal">Pertanyaan <em>Singkat</em></h2>
+        <div class="faq-list">
+            <details class="faq-item reveal">
+                <summary>Apakah kode aspirasi dikirim melalui WhatsApp?</summary>
+                <p>Tidak. Kode aspirasi muncul di halaman berhasil setelah form terkirim. Silakan salin, catat, atau screenshot kode tersebut.</p>
+            </details>
+            <details class="faq-item reveal">
+                <summary>Bagaimana kalau lupa kode aspirasi?</summary>
+                <p>Hubungi admin aspirasi dengan menyebutkan nama lengkap, nomor WhatsApp yang dipakai saat mengirim, kabupaten/kota, dan judul aspirasi.</p>
+            </details>
+            <details class="faq-item reveal">
+                <summary>Apa yang dibutuhkan untuk cek status?</summary>
+                <p>Gunakan kode aspirasi dan nomor WhatsApp yang sama dengan data saat pengiriman aspirasi.</p>
+            </details>
+        </div>
     </div>
 </section>
 @endsection

@@ -13,6 +13,7 @@ class TrackingAspirasiController extends Controller
         return view('aspirasi.track', [
             'aspirasi' => null,
             'notFound' => false,
+            'adminWhatsapp' => config('site.aspirasi_admin_whatsapp'),
         ]);
     }
 
@@ -32,6 +33,7 @@ class TrackingAspirasiController extends Controller
         return view('aspirasi.track', [
             'aspirasi' => $aspirasi,
             'notFound' => ! $aspirasi,
+            'adminWhatsapp' => config('site.aspirasi_admin_whatsapp'),
         ]);
     }
 }

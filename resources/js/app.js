@@ -151,6 +151,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.querySelectorAll('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const value = button.dataset.copy || '';
+      const defaultLabel = button.dataset.copyLabel || button.textContent;
+      const successLabel = button.dataset.copySuccess || 'Tersalin';
+
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = successLabel;
+      } catch {
+        const textarea = document.createElement('textarea');
+        textarea.value = value;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        button.textContent = successLabel;
+      }
+
+      window.setTimeout(() => {
+        button.textContent = defaultLabel;
+      }, 1800);
+    });
+  });
+
   const slides = [...document.querySelectorAll('.slide')];
   const dots = [...document.querySelectorAll('.slider-dot')];
   let activeSlide = 0;

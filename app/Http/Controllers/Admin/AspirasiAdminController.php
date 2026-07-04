@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Aspirasi;
 use App\Models\AspirasiCategory;
 use App\Models\AspirationAttachment;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -17,15 +19,7 @@ class AspirasiAdminController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = Aspirasi::query()
-            ->with('category')
-            ->search($request->string('q')->toString())
-            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
-            ->when($request->filled('priority'), fn ($q) => $q->where('priority', $request->priority))
-            ->when($request->filled('category_id'), fn ($q) => $q->where('category_id', $request->category_id))
-            ->when($request->filled('city'), fn ($q) => $q->where('city', 'like', '%'.$request->city.'%'))
-            ->when($request->filled('date_from'), fn ($q) => $q->whereDate('submitted_at', '>=', $request->date_from))
-            ->when($request->filled('date_to'), fn ($q) => $q->whereDate('submitted_at', '<=', $request->date_to));
+        $query = $this->filteredQuery($request)->with('category');
 
         return view('admin.aspirasi.index', [
             'aspirations' => $query->latest('submitted_at')->paginate(12)->withQueryString(),
@@ -34,6 +28,40 @@ class AspirasiAdminController extends Controller
             'priorities' => Aspirasi::priorities(),
             'filters' => $request->only(['q', 'status', 'priority', 'category_id', 'city', 'date_from', 'date_to']),
         ]);
+    }
+
+    public function export(Request $request, string $format): StreamedResponse|Response
+    {
+        $rows = $this->filteredQuery($request)
+            ->with('category')
+            ->latest('submitted_at')
+            ->get();
+
+        $filename = 'laporan-aspirasi-'.now()->format('Ymd-His').'.'.$format;
+
+        if ($format === 'csv') {
+            return response()->streamDownload(function () use ($rows): void {
+                $output = fopen('php://output', 'w');
+                fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+                fputcsv($output, $this->exportHeadings());
+
+                foreach ($rows as $aspirasi) {
+                    fputcsv($output, $this->exportRow($aspirasi));
+                }
+
+                fclose($output);
+            }, $filename, [
+                'Content-Type' => 'text/csv; charset=UTF-8',
+            ]);
+        }
+
+        return response()
+            ->view('admin.aspirasi.export-xls', [
+                'rows' => $rows,
+                'headings' => $this->exportHeadings(),
+            ])
+            ->header('Content-Type', 'application/vnd.ms-excel; charset=UTF-8')
+            ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
     }
 
     public function show(Aspirasi $aspirasi): View
@@ -112,5 +140,61 @@ class AspirasiAdminController extends Controller
         abort_unless(Storage::exists($attachment->path), 404);
 
         return Storage::download($attachment->path, $attachment->original_name);
+    }
+
+    private function filteredQuery(Request $request): Builder
+    {
+        return Aspirasi::query()
+            ->search($request->string('q')->toString())
+            ->when($request->filled('status'), fn (Builder $query) => $query->where('status', $request->status))
+            ->when($request->filled('priority'), fn (Builder $query) => $query->where('priority', $request->priority))
+            ->when($request->filled('category_id'), fn (Builder $query) => $query->where('category_id', $request->category_id))
+            ->when($request->filled('city'), fn (Builder $query) => $query->where('city', 'like', '%'.$request->city.'%'))
+            ->when($request->filled('date_from'), fn (Builder $query) => $query->whereDate('submitted_at', '>=', $request->date_from))
+            ->when($request->filled('date_to'), fn (Builder $query) => $query->whereDate('submitted_at', '<=', $request->date_to));
+    }
+
+    private function exportHeadings(): array
+    {
+        return [
+            'Kode Aspirasi',
+            'Tanggal Masuk',
+            'Nama',
+            'WhatsApp',
+            'Email',
+            'Kabupaten/Kota',
+            'Kecamatan/Desa',
+            'Kategori',
+            'Judul',
+            'Uraian Aspirasi',
+            'Status',
+            'Prioritas',
+            'Penanggung Jawab',
+            'Hasil Verifikasi',
+            'Respons Publik',
+            'Catatan Internal',
+        ];
+    }
+
+    private function exportRow(Aspirasi $aspirasi): array
+    {
+        return [
+            $aspirasi->code,
+            optional($aspirasi->submitted_at)->format('Y-m-d H:i:s'),
+            $aspirasi->name,
+            $aspirasi->whatsapp,
+            $aspirasi->email,
+            $aspirasi->city,
+            $aspirasi->district_village,
+            $aspirasi->category?->name,
+            $aspirasi->title,
+            $aspirasi->body,
+            $aspirasi->statusLabelText(),
+            $aspirasi->priorityLabelText(),
+            $aspirasi->assigned_to,
+            $aspirasi->verification_result,
+            $aspirasi->public_response,
+            $aspirasi->internal_note,
+        ];
     }
 }

@@ -907,6 +907,93 @@ textarea.form-control {
   color: #5a3c00;
 }
 
+.success-code {
+  color: var(--merah);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 12px 0;
+}
+
+.code-save-box {
+  background: #fff8e8;
+  border: 1px solid rgba(200, 151, 58, 0.3);
+  border-radius: 10px;
+  margin: 18px 0;
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.code-save-box strong {
+  color: var(--merah);
+}
+
+.code-save-box p {
+  color: var(--teks-ringan);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 6px;
+}
+
+.code-help {
+  align-items: center;
+  background: linear-gradient(135deg, #111, #1a0008);
+  border: 1px solid rgba(200, 151, 58, 0.28);
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  gap: 22px;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 24px;
+}
+
+.code-help h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.code-help p {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.code-help-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(200, 151, 58, 0.22);
+  border-radius: 10px;
+  color: #fff;
+  padding: 18px 20px;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.faq-item p {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.75;
+  margin-top: 12px;
+}
+
 .step-bar {
   display: grid;
   gap: 10px;
@@ -2263,7 +2350,99 @@ tr:last-child td {
 .admin-filters {
   display: grid;
   gap: 12px;
-  grid-template-columns: 2fr repeat(7, minmax(120px, 1fr));
+  grid-template-columns: 2fr repeat(8, minmax(120px, 1fr));
+}
+
+.admin-report-card {
+  margin-bottom: 24px;
+}
+
+.admin-report-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.admin-report-head h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+}
+
+.admin-report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.analytics-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.analytics-panel {
+  background: #fbfaf7;
+  border: 1px solid #ece8df;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.analytics-panel h3 {
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.chart-list {
+  display: grid;
+  gap: 14px;
+}
+
+.chart-row {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(130px, 1.2fr) minmax(120px, 2fr) 42px;
+}
+
+.chart-row span {
+  color: var(--teks-ringan);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.chart-track {
+  background: #ece8df;
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.chart-track i {
+  background: linear-gradient(90deg, var(--merah), var(--emas));
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+}
+
+.chart-row strong {
+  color: var(--merah);
+  font-family: "Playfair Display", serif;
+  font-size: 1.05rem;
+  text-align: right;
+}
+
+.code-chip {
+  background: var(--emas-muda);
+  border-radius: 6px;
+  color: var(--merah);
+  display: inline-flex;
+  font-family: Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 5px 8px;
 }
 
 .detail-grid {
@@ -2450,6 +2629,21 @@ tr:last-child td {
   .form-row {
     grid-template-columns: 1fr;
   }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-report-head,
+  .code-help {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-report-actions,
+  .code-help-actions {
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2516,6 +2710,14 @@ tr:last-child td {
 
   .activity-video-thumb {
     height: 250px;
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-row strong {
+    text-align: left;
   }
 
   .profile-block {

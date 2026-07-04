@@ -15,6 +15,7 @@
     <div class="form-card reveal" style="max-width:640px;margin:0 auto">
         <div class="section-kop">Tracking Aspirasi</div>
         <h2 class="section-judul" style="font-size:1.7rem;margin-bottom:22px">Masukkan <em>Kode Aspirasi</em></h2>
+        <div class="alert alert-info">Kode aspirasi didapat setelah form berhasil dikirim. Kode ini bukan OTP WhatsApp, jadi perlu dicatat atau disalin oleh pengirim.</div>
         <form method="POST" action="{{ route('aspirasi.track.lookup') }}">
             @csrf
             <div class="form-group">
@@ -31,7 +32,7 @@
         </form>
 
         @if ($notFound)
-            <div class="alert alert-peringatan" style="margin-top:24px">Kode aspirasi tidak ditemukan atau nomor WhatsApp tidak sesuai.</div>
+            <div class="alert alert-peringatan" style="margin-top:24px">Kode aspirasi tidak ditemukan atau nomor WhatsApp tidak sesuai. Jika lupa kode, hubungi admin dengan menyebutkan nama lengkap, nomor WhatsApp, kabupaten/kota, dan judul aspirasi.</div>
         @endif
 
         @if ($aspirasi)
@@ -76,6 +77,10 @@
     <div style="text-align:center;margin-top:30px" class="reveal">
         <p class="muted">Belum punya kode aspirasi?</p>
         <a href="{{ route('aspirasi.create') }}" class="btn btn-merah" style="margin-top:12px">Kirim Aspirasi Baru</a>
+    </div>
+
+    <div style="max-width:640px;margin:28px auto 0">
+        @include('aspirasi.partials.code-help', ['adminWhatsapp' => $adminWhatsapp])
     </div>
 </section>
 @endsection

@@ -38,6 +38,12 @@ class AspirasiFlowTest extends TestCase
         $aspirasi = Aspirasi::query()->with(['attachments', 'histories'])->firstOrFail();
 
         $response->assertRedirect(route('aspirasi.success', $aspirasi->code));
+        $this->get(route('aspirasi.success', $aspirasi->code))
+            ->assertOk()
+            ->assertSee($aspirasi->code)
+            ->assertSee('Kode aspirasi bukan OTP WhatsApp')
+            ->assertSee('Salin Kode Aspirasi');
+
         $this->assertSame('6281234567890', $aspirasi->whatsapp);
         $this->assertMatchesRegularExpression('/^ASP-\d{4}-\d{5}$/', $aspirasi->code);
         $this->assertCount(1, $aspirasi->attachments);

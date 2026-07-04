@@ -82,6 +82,76 @@ class AdminAspirasiTest extends TestCase
         ]);
     }
 
+    public function test_admin_dashboard_shows_code_and_analytics(): void
+    {
+        $this->withoutVite();
+        $this->seed();
+
+        $admin = User::query()->firstOrFail();
+        $category = AspirasiCategory::query()->firstOrFail();
+
+        Aspirasi::create([
+            'code' => 'ASP-2026-55555',
+            'name' => 'Masyarakat Aceh',
+            'whatsapp' => '6281515151515',
+            'city' => 'Aceh Barat',
+            'category_id' => $category->id,
+            'title' => 'Aspirasi layanan hukum',
+            'body' => 'Mohon tindak lanjut terkait akses layanan hukum di daerah.',
+            'status' => Aspirasi::STATUS_RECEIVED,
+            'submitted_at' => now(),
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('admin.dashboard'))
+            ->assertOk()
+            ->assertSee('Analitik Aspirasi')
+            ->assertSee('Rekap Bulanan')
+            ->assertSee('Wilayah Pengirim')
+            ->assertSee('ASP-2026-55555')
+            ->assertSee('Export CSV')
+            ->assertSee('Export Excel');
+    }
+
+    public function test_admin_can_export_filtered_aspirasi_reports(): void
+    {
+        $this->withoutVite();
+        $this->seed();
+
+        $admin = User::query()->firstOrFail();
+        $category = AspirasiCategory::query()->firstOrFail();
+
+        Aspirasi::create([
+            'code' => 'ASP-2026-66666',
+            'name' => 'Pemohon Export',
+            'whatsapp' => '6281616161616',
+            'city' => 'Langsa',
+            'category_id' => $category->id,
+            'title' => 'Aspirasi untuk laporan',
+            'body' => 'Data ini digunakan untuk memastikan laporan dapat diexport.',
+            'status' => Aspirasi::STATUS_COMPLETED,
+            'priority' => Aspirasi::PRIORITY_HIGH,
+            'assigned_to' => 'Admin Aspirasi',
+            'verification_result' => 'Data valid.',
+            'submitted_at' => now(),
+        ]);
+
+        $csvResponse = $this->actingAs($admin)
+            ->get(route('admin.aspirasi.export', ['format' => 'csv', 'city' => 'Langsa']))
+            ->assertOk();
+
+        $csvContent = $csvResponse->streamedContent();
+
+        $this->assertStringContainsString('ASP-2026-66666', $csvContent);
+        $this->assertStringContainsString('Pemohon Export', $csvContent);
+
+        $this->actingAs($admin)
+            ->get(route('admin.aspirasi.export', ['format' => 'xls', 'city' => 'Langsa']))
+            ->assertOk()
+            ->assertSee('Kode Aspirasi')
+            ->assertSee('ASP-2026-66666');
+    }
+
     public function test_attachment_download_is_admin_only(): void
     {
         $this->withoutVite();
